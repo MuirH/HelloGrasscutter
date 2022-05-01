@@ -1,0 +1,26 @@
+version: "3" 
+services:
+    server:
+        image: becod/hellograsscutter:dev
+        container_name: "HelloGrasscutter"
+        hostname: "hellograsscutter"
+        ports:
+          - "80:80"
+          - "443:443"
+          - "8888:8888/tcp"
+          - "8888:8888/udp"
+          - "22102:22102/tcp"
+          - "22102:22102/udp"
+        volumes:
+            - "./app:/app:rw"
+        depends_on:
+          - mongodb
+
+      mongodb:
+        image: mongo:5
+        container_name: "mongo"
+        hostname: "mongo"
+        ports:
+          - "27017:27017"
+        volumes:
+          - ./app/mongo:/data/db
