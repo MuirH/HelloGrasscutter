@@ -1,5 +1,7 @@
 #!/bin/bash
 
+command="$@"
+
 config(){
     echo "$0: Generating configuration..."
     nohup bash -c 'sleep 3s;pkill java' > /dev/null 2>&1 &
@@ -14,6 +16,7 @@ config(){
     fi
     mv config.json config.json.change
     cat config.json.change|jq '.GameServer.Name="HelloGrasscutter"' > config.json
+    rm -rf config.json.change
 }
 
 init(){
@@ -31,7 +34,7 @@ init(){
     cp -rf /grasscutter.jar /app/grasscutter.jar
     config
     echo "$0: Initialization complete!"
-    echo "$0: Please run again and the server will start soon!"
+    exec $command
 }
 
 if [[ ! -d "/app" ]]; then
@@ -69,5 +72,5 @@ elif [[ $1 = "resetconfig" ]]; then
 else
     cd /app
     echo -e "$0: Welcome to HelloGrasscutter, this is a docker open source project based on Grasscutter, you can check it out at https://github.com/HelloGrasscutter."
-    exec "$@"
+    exec $command
 fi
