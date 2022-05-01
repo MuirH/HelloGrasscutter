@@ -2,15 +2,18 @@
 
 config(){
     echo "$0: Generating configuration..."
-    java -jar grasscutter.jar -handbook
+    nohup bash -c 'sleep 3s;pkill java' > /dev/null 2>&1 &
+    nohup java -jar grasscutter.jar > /dev/null 2>&1 &
+    sleep 3s
     if [ -z "$MongoIP" ]; then
-        cat config.json|jq '.DatabaseUrl="mongodb://mongo:27017"' > config.json
-        cat config.json|jq '.GameServer.DispatchServerDatabaseUrl="mongodb://mongo:27017"' > config.json
+        cat config.json|jq '.DatabaseUrl="mongodb://mongo:27017"' > config.json.change
+        cat config.json.change|jq '.GameServer.DispatchServerDatabaseUrl="mongodb://mongo:27017"' > config.json
     else
-        cat config.json|jq ".DatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json
-        cat config.json|jq ".GameServer.DispatchServerDatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json
+        cat config.json|jq ".DatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json.change
+        cat config.json.change|jq ".GameServer.DispatchServerDatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json
     fi
-    cat config.json|jq '.GameServer.Name="HelloGrasscutter"' > config.json
+    mv config.json config.json.change
+    cat config.json.change|jq '.GameServer.Name="HelloGrasscutter"' > config.json
 }
 
 init(){
