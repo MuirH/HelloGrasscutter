@@ -6,8 +6,8 @@ on:
       - 'main'
   release:
     types: [ created ]
-  #schedule:
-  #  - cron: '0 20 * * *'
+  schedule:
+    - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
       tag:
@@ -52,4 +52,4 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             becod/hellograsscutter:dev
-            becod/hellograsscutter:${{ steps.date.outputs.today }}
+            becod/hellograsscutter:dev-${{ steps.date.outputs.today }}
