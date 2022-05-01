@@ -16,7 +16,7 @@ services:
         depends_on:
           - mongodb
 
-      mongodb:
+    mongodb:
         image: mongo:5
         container_name: "mongo"
         hostname: "mongo"
