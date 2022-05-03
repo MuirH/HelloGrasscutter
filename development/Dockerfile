@@ -19,10 +19,11 @@ RUN export GRADLE_OPTS="-Dfile.encoding=utf-8" \
 
 FROM azul/zulu-openjdk-alpine:17-jre
 
-RUN apk add --no-cache git bash jq
-
 COPY --from=builder /rootfs /
 COPY development/rootfs /
+
+RUN apk add --no-cache git bash jq \
+ && chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["java", "-jar", "grasscutter.jar"]

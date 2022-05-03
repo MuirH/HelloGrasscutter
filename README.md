@@ -3,6 +3,10 @@
 # Quick Start
 ```
 wget https://raw.githubusercontent.com/HelloGrasscutter/HelloGrasscutter/main/docker-compose.yml
+
+# Now, you need to change the values of GameServer>PublicIp and DispatchServer>PublicIp in config.json to the ip of the server where you are running HelloGrasscutter
+nano ./app/config.json
+
 docker-compose up -d
 ```
 
