@@ -5,7 +5,7 @@ command="$@"
 config(){
     echo "$0: Generating configuration..."
     nohup bash -c 'sleep 3s;pkill java' > /dev/null 2>&1 &
-    nohup java -jar grasscutter.jar > /dev/null 2>&1 &
+    java -jar grasscutter.jar > /dev/null 2>&1 &
     sleep 3s
     if [ -z "$MongoIP" ]; then
         cat config.json|jq '.DatabaseUrl="mongodb://mongo:27017"' > config.json.change
