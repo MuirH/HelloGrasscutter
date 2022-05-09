@@ -12,7 +12,7 @@ RUN export GRADLE_OPTS="-Dfile.encoding=utf-8" \
  && chmod +x gradlew \
  && ./gradlew jar \
  && mkdir /rootfs \
- && cp -rf grasscutter.jar /rootfs \
+ && cp -rf grasscutter*.jar /rootfs/grasscutter.jar \
  && cp -rf keys /rootfs \
  && cp -rf keystore.p12 /rootfs \
  && cp -rf data /rootfs
