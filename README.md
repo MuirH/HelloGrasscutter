@@ -24,5 +24,5 @@ To be added...
 As easy as drinking water.
 
 ```
-docker exec --sig-proxy=false HelloGrasscutter
+docker attach --sig-proxy=false HelloGrasscutter
 ```
