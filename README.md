@@ -4,6 +4,11 @@
 ```
 wget https://raw.githubusercontent.com/MuirProject/HelloGrasscutter/main/docker-compose.yml
 
+docker-compose up -d
+
+# Wait a while for it to automatically generate the configuration and then end it
+docker-compose down
+
 # Now, you need to change the values of GameServer>PublicIp and DispatchServer>PublicIp in config.json to the ip of the server where you are running HelloGrasscutter
 nano ./app/config.json
 
@@ -13,3 +18,11 @@ docker-compose up -d
 # Manually
 
 To be added...
+
+# Access to console
+
+As easy as drinking water.
+
+```
+docker exec --sig-proxy=false HelloGrasscutter
+```

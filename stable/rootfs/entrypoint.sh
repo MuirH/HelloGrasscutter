@@ -10,9 +10,13 @@ config(){
     if [ -z "$MongoIP" ]; then
         cat config.json|jq '.DatabaseUrl="mongodb://mongo:27017"' > config.json.change
         cat config.json.change|jq '.GameServer.DispatchServerDatabaseUrl="mongodb://mongo:27017"' > config.json
+        cat config.json|jq '.databaseInfo.server.connectionUri="mongodb://mongo:27017"' > config.json.change
+        cat config.json.change|jq '.databaseInfo.game.connectionUri="mongodb://mongo:27017"' > config.json
     else
         cat config.json|jq ".DatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json.change
         cat config.json.change|jq ".GameServer.DispatchServerDatabaseUrl=\"mongodb:/"$MongoIP":27017\"" > config.json
+        cat config.json|jq ".databaseInfo.server.connectionUri=\"mongodb:/"$MongoIP":27017\"" > config.json.change
+        cat config.json.change|jq ".databaseInfo.game.connectionUri=\"mongodb:/"$MongoIP":27017\"" > config.json
     fi
     mv config.json config.json.change
     cat config.json.change|jq '.GameServer.Name="HelloGrasscutter"' > config.json
