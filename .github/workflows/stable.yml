@@ -53,3 +53,14 @@ jobs:
           tags: |
             becod/hellograsscutter:stable
             becod/hellograsscutter:stable-${{ steps.date.outputs.today }}
+      -
+        name: Build and push full version
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./stable/Dockerfile.full
+          platforms: linux/amd64,linux/arm64/v8
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            becod/hellograsscutter:stable-full
+            becod/hellograsscutter:stable-full-${{ steps.date.outputs.today }}

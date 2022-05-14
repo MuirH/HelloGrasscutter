@@ -50,6 +50,21 @@ jobs:
           file: ./development/Dockerfile
           platforms: linux/amd64,linux/arm64/v8
           push: ${{ github.event_name != 'pull_request' }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
           tags: |
             becod/hellograsscutter:dev
             becod/hellograsscutter:dev-${{ steps.date.outputs.today }}
+      -
+        name: Build and push full version
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./development/Dockerfile.full
+          platforms: linux/amd64,linux/arm64/v8
+          push: ${{ github.event_name != 'pull_request' }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+          tags: |
+            becod/hellograsscutter:dev-full
+            becod/hellograsscutter:dev-full-${{ steps.date.outputs.today }}

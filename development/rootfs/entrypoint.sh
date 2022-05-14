@@ -26,7 +26,10 @@ init(){
     cp -rf /keystore.p12 /app/keystore.p12
     if [[ ! -d "/app/resources" ]]; then
         echo "$0: Downloading resources..."
-        git clone --depth 1 https://github.com/HelloGrasscutter/Resources.git /tmp/Resources
+        if ! (git clone --depth 1 https://github.com/Koko-boya/Grasscutter_Resources.git /tmp/Resources  > /dev/null 2>&1) then
+            git clone --depth 1 https://github.com/HelloGrasscutter/Resources.git /tmp/Resources  > /dev/null 2>&1
+		fi
+        rm -rf /tmp/Resources/.git
         echo "$0: Copying resources..."
         mkdir -p /app/resources/
         mv -f /tmp/Resources/Resources/* /app/resources

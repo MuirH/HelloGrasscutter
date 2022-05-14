@@ -17,13 +17,15 @@ RUN export GRADLE_OPTS="-Dfile.encoding=utf-8" \
  && cp -rf keystore.p12 /rootfs \
  && cp -rf data /rootfs
 
-FROM azul/zulu-openjdk-alpine:17
+FROM azul/zulu-openjdk-alpine:17-jre
 
 COPY --from=builder /rootfs /
 COPY development/rootfs /
 
 RUN apk add --no-cache git bash jq \
- && chmod +x /entrypoint.sh
+ && chmod +x /entrypoint.sh \
+ && git clone --depth 1 https://github.com/HelloGrasscutter/Resources.git /tmp/Resources \
+ && rm -rf /tmp/Resources/.git
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["java", "-jar", "grasscutter.jar"]
