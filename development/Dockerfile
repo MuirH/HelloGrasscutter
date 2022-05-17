@@ -7,15 +7,12 @@ RUN apt-get update \
 WORKDIR /work
 
 RUN export GRADLE_OPTS="-Dfile.encoding=utf-8" \
- && sed -i "s#Hello#Server <a href='https://github.com/HelloGrasscutter'>HelloGrasscutter</a>#" src/main/java/emu/grasscutter/server/dispatch/DispatchServer.java \
  && git submodule update --init \
  && chmod +x gradlew \
  && ./gradlew jar \
  && mkdir /rootfs \
  && cp -rf grasscutter*.jar /rootfs/grasscutter.jar \
- && cp -rf keys /rootfs \
- && cp -rf keystore.p12 /rootfs \
- && cp -rf data /rootfs
+ && cp -rf keystore.p12 /rootfs
 
 FROM azul/zulu-openjdk-alpine:17-jre
 
